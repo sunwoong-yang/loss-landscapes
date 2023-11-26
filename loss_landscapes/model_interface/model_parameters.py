@@ -224,9 +224,10 @@ class ModelParameters:
             # normalize one-dimensional bias vectors
             if len(self.parameters[l].size()) == 1:
                 self.parameters[l] *= (ref_point.parameters[l].norm(order) / self.parameters[l].norm(order))
-            # normalize two-dimensional weight vectors
-            for f in range(len(self.parameters[l])):
-                self.parameters[l][f] *= ref_point.filter_norm((l, f), order) / (self.filter_norm((l, f), order))
+            else:
+                # normalize two-dimensional weight vectors
+                for f in range(len(self.parameters[l])):
+                    self.parameters[l][f] *= ref_point.filter_norm((l, f), order) / (self.filter_norm((l, f), order))
 
     def model_norm(self, order=2) -> float:
         """
